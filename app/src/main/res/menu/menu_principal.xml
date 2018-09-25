@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_novo"
+        android:title="Cadastrar carro" />
+    <item
+        android:id="@+id/menu_listar"
+        android:title="Listar todos carros" />
+</menu>
