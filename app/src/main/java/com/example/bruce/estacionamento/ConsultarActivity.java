@@ -20,6 +20,7 @@ public class ConsultarActivity extends AppCompatActivity {
     private String placa;
     private EditText campoConsulta;
     //oi
+    private String g;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
