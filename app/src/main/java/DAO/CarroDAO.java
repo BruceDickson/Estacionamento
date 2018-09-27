@@ -24,7 +24,7 @@ public class CarroDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String s = "CREATE TABLE " + TABELA + " (id INTEGER PRIMARY KEY," +
                     " modelo TEXT, placa TEXT UNIQUE NOT NULL, dono TEXT," +
-                    " telefone TEXT, estacionamento INTEGER);";
+                    " telefone TEXT, estacionamento INTEGER, caminhoFoto TEXT);";
         db.execSQL(s);
     }
 
@@ -43,6 +43,7 @@ public class CarroDAO extends SQLiteOpenHelper {
         values.put("dono", carro.getDono());
         values.put("telefone", carro.getTelefone());
         values.put("estacionamento", carro.getEstacionado());
+        values.put("caminhoFoto", carro.getCaminhoFoto());
 
         getWritableDatabase().insert(TABELA, null, values);
     }
@@ -82,6 +83,7 @@ public class CarroDAO extends SQLiteOpenHelper {
         values.put("dono", carro.getDono());
         values.put("telefone", carro.getTelefone());
         values.put("estacionamento", carro.getEstacionado());
+        values.put("caminhoFoto", carro.getCaminhoFoto());
 
         getWritableDatabase().update(TABELA, values, "id=?", new String[]{carro.getId()+""}); // ERA PRA TER TOSTRING
     }
@@ -99,6 +101,7 @@ public class CarroDAO extends SQLiteOpenHelper {
             carro.setDono(c.getString(c.getColumnIndex("dono")));
             carro.setTelefone(c.getString(c.getColumnIndex("telefone")));
             carro.setEstacionado(c.getInt(c.getColumnIndex("estacionamento")));
+            carro.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             carros.add(carro);
         }
@@ -119,6 +122,7 @@ public class CarroDAO extends SQLiteOpenHelper {
             carro.setDono(c.getString(c.getColumnIndex("dono")));
             carro.setTelefone(c.getString(c.getColumnIndex("telefone")));
             carro.setEstacionado(c.getInt(c.getColumnIndex("estacionamento")));
+            carro.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             carros.add(carro);
         }

@@ -1,8 +1,11 @@
 package helper;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.bruce.estacionamento.FormularioActivity;
 import com.example.bruce.estacionamento.R;
@@ -16,6 +19,7 @@ public class FormularioHelper {
     private EditText placa;
     private EditText telefone;
     private CheckBox estacionado;
+    private ImageView foto;
 
     public FormularioHelper(FormularioActivity activity){
         this.carro = new Carro();
@@ -25,6 +29,7 @@ public class FormularioHelper {
         this.placa = activity.findViewById(R.id.edtPlaca);
         this.telefone = activity.findViewById(R.id.edtTelefone);
         this.estacionado = activity.findViewById(R.id.cbEstacionar);
+        this.foto = activity.findViewById(R.id.imgFoto);
     }
 
     public Carro pegaCarroDoFormulario(){
@@ -48,7 +53,25 @@ public class FormularioHelper {
         if(carro.getEstacionado() == 1) estacionado.setChecked(true);
         else estacionado.setChecked(false);
 
+        if(carro.getCaminhoFoto() != null){
+            Bitmap imagemFoto = BitmapFactory.decodeFile(carro.getCaminhoFoto());
+            imagemFoto = Bitmap.createScaledBitmap(imagemFoto, 150,150,true);
+
+            foto.setImageBitmap(imagemFoto);
+        }
+
+
         this.carro = carro;
+
+    }
+
+    public void carregaImagem(String caminhoFoto){
+        this.carro.setCaminhoFoto(caminhoFoto);
+
+        Bitmap imagemFoto = BitmapFactory.decodeFile(caminhoFoto);
+        imagemFoto = Bitmap.createScaledBitmap(imagemFoto, 150,150,true);
+
+        foto.setImageBitmap(imagemFoto);
 
     }
 }

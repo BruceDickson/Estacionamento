@@ -20,5 +20,9 @@
         <activity android:name=".ListarTodosActivity" />
         <activity android:name=".ConsultarActivity"></activity>
     </application>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>

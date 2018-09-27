@@ -2,6 +2,7 @@ package com.example.bruce.estacionamento;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +56,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         MenuItem retirar = menu.add("Retirar Carro");
-        //MenuItem detalhes = menu.add("Detalhes");
+        MenuItem ligar = menu.add("Ligar");
+        MenuItem enviarSMS = menu.add("Enviar SMS");
+
+        Intent intentLigar = new Intent(Intent.ACTION_DIAL);
+        intentLigar.setData(Uri.parse("tel:"+carroSelecionado.getTelefone()));
+        ligar.setIntent(intentLigar);
+
+        Intent intentSms = new Intent(Intent.ACTION_VIEW);
+        intentSms.setData(Uri.parse("sms:"+carroSelecionado.getTelefone()));
+        intentSms.putExtra("sms_body", "Ta pegando fogo bixo!");
+        enviarSMS.setIntent(intentSms);
 
         retirar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -77,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
         super.onCreateContextMenu(menu, v, menuInfo);
     }
