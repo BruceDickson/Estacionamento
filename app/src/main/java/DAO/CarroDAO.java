@@ -52,6 +52,28 @@ public class CarroDAO extends SQLiteOpenHelper {
         getWritableDatabase().delete(TABELA, "id=?", args);
     }
 
+    public List<Carro> consultar(String placa){
+        List<Carro> carros = new ArrayList<Carro>();
+
+        if(placa != "") {
+            Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + TABELA + " WHERE placa=?", new String[]{placa});
+
+            while (c.moveToNext()) {
+                Carro carro = new Carro();
+                carro.setId(c.getLong(c.getColumnIndex("id")));
+                carro.setModelo(c.getString(c.getColumnIndex("modelo")));
+                carro.setPlaca(c.getString(c.getColumnIndex("placa")));
+                carro.setDono(c.getString(c.getColumnIndex("dono")));
+                carro.setTelefone(c.getString(c.getColumnIndex("telefone")));
+                carro.setEstacionado(c.getInt(c.getColumnIndex("estacionamento")));
+
+                carros.add(carro);
+            }
+            c.close();
+        }
+        return carros;
+    }
+
     public void alterar(Carro carro){
         ContentValues values = new ContentValues();
 

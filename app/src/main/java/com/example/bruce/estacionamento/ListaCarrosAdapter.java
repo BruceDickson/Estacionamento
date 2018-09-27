@@ -40,13 +40,14 @@ public class ListaCarrosAdapter extends BaseAdapter {
         Carro carro = carros.get(position);
         TextView txtDono = v.findViewById(R.id.txtDono1);
         TextView txtModelo = v.findViewById(R.id.txtModelo1);
-        TextView txtplaca = v.findViewById(R.id.txtPlaca1);
-        TextView txtTelefone = v.findViewById(R.id.txtTelefone1);
+        //TextView txtplaca = v.findViewById(R.id.txtPlaca1);
+        //TextView txtTelefone = v.findViewById(R.id.txtTelefone1);
+
+        if(carro.getEstacionado() == 1) v.setBackgroundColor(activity.getResources().getColor(R.color.carro_estacionado));
+        else v.setBackgroundColor(activity.getResources().getColor(R.color.carro_desestacionado));
 
         txtDono.setText(carro.getDono());
-        txtModelo.setText(carro.getModelo());
-        txtplaca.setText(carro.getPlaca());
-        txtTelefone.setText(carro.getTelefone());
+        txtModelo.setText(carro.getModelo() + " - " + carro.getPlaca());
 
         return v;
     }

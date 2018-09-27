@@ -18,6 +18,7 @@ import helper.FormularioHelper;
 public class FormularioActivity extends AppCompatActivity {
     private Carro carro;
     private FormularioHelper fHelper;
+    private Button btnDeletar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class FormularioActivity extends AppCompatActivity {
         fHelper = new FormularioHelper(FormularioActivity.this);
         Button button = (Button) findViewById(R.id.btnCadastrar);
         carro = (Carro) getIntent().getSerializableExtra("carroSelecionado");
+        btnDeletar = findViewById(R.id.btnDeletar);
 
         if(carro == null) {
             button.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +44,7 @@ public class FormularioActivity extends AppCompatActivity {
         }else{
             button.setText("Alterar");
             fHelper.colocaNoFormulario(carro);
+            btnDeletar.setVisibility(View.VISIBLE);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,6 +52,17 @@ public class FormularioActivity extends AppCompatActivity {
                     CarroDAO dao = new CarroDAO(FormularioActivity.this);
                     carro = fHelper.pegaCarroDoFormulario();
                     dao.alterar(carro);
+                    dao.close();
+                    finish();
+                }
+            });
+
+            btnDeletar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CarroDAO dao = new CarroDAO(FormularioActivity.this);
+                    carro = fHelper.pegaCarroDoFormulario();
+                    dao.delete(carro);
                     dao.close();
                     finish();
                 }

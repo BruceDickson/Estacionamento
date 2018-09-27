@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         MenuItem retirar = menu.add("Retirar Carro");
-        MenuItem detalhes = menu.add("Detalhes");
+        //MenuItem detalhes = menu.add("Detalhes");
 
         retirar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -94,9 +94,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,FormularioActivity.class);
                 startActivity(intent);
                 return false;
+            case R.id.menu_consultar:
+                Intent consultar = new Intent(MainActivity.this, ConsultarActivity.class);
+                startActivity(consultar);
+                return false;
             case R.id.menu_listar:
                 Intent listar = new Intent(MainActivity.this, ListarTodosActivity.class);
                 startActivity(listar);
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
