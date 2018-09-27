@@ -19,6 +19,7 @@ public class ConsultarActivity extends AppCompatActivity {
     private ImageButton consultar;
     private String placa;
     private EditText campoConsulta;
+    //oi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
