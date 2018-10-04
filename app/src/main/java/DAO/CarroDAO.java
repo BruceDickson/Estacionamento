@@ -1,12 +1,16 @@
 package DAO;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bin.Carro;
@@ -24,7 +28,7 @@ public class CarroDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String s = "CREATE TABLE " + TABELA + " (id INTEGER PRIMARY KEY," +
                     " modelo TEXT, placa TEXT UNIQUE NOT NULL, dono TEXT," +
-                    " telefone TEXT, estacionamento INTEGER, caminhoFoto TEXT);";
+                    " telefone TEXT, estacionamento INTEGER, caminhoFoto TEXT, data TEXT);";
         db.execSQL(s);
     }
 
@@ -44,6 +48,7 @@ public class CarroDAO extends SQLiteOpenHelper {
         values.put("telefone", carro.getTelefone());
         values.put("estacionamento", carro.getEstacionado());
         values.put("caminhoFoto", carro.getCaminhoFoto());
+        values.put("data", carro.getData());
 
         getWritableDatabase().insert(TABELA, null, values);
     }
@@ -123,6 +128,7 @@ public class CarroDAO extends SQLiteOpenHelper {
             carro.setTelefone(c.getString(c.getColumnIndex("telefone")));
             carro.setEstacionado(c.getInt(c.getColumnIndex("estacionamento")));
             carro.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
+            carro.setData(c.getString(c.getColumnIndex("data")));
 
             carros.add(carro);
         }
@@ -137,9 +143,13 @@ public class CarroDAO extends SQLiteOpenHelper {
         getWritableDatabase().update(TABELA, values, "id=?", new String[]{carro.getId()+""}); // ERA PRA TER TOSTRING
     }
 
-    public void estacionarCarro(Carro carro){
+    public void estacionarCarro(Carro carro, Activity activity){
         ContentValues values = new ContentValues();
         values.put("estacionamento", 1);
+
+        Date date = new Date();
+        DateFormat dateformat = android.text.format.DateFormat.getDateFormat(activity);
+        values.put("data", DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(date));
 
         getWritableDatabase().update(TABELA, values, "id=?", new String[]{carro.getId()+""}); // ERA PRA TER TOSTRING
     }

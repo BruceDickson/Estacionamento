@@ -10,6 +10,15 @@ public class Carro implements Serializable {
     private String telefone;
     private int estacionado;
     private String caminhoFoto;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public String getCaminhoFoto() {
         return caminhoFoto;

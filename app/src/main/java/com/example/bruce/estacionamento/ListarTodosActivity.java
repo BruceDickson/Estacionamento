@@ -54,7 +54,7 @@ public class ListarTodosActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 CarroDAO dao = new CarroDAO(ListarTodosActivity.this);
-                                dao.estacionarCarro(carroSelecionado);
+                                dao.estacionarCarro(carroSelecionado, ListarTodosActivity.this);
                                 dao.close();
                                 Toast.makeText(getApplicationContext(), "Carro Estacionado", Toast.LENGTH_SHORT).show();
                                 carregaTodosCarros();

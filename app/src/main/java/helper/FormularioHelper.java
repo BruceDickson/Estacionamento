@@ -3,12 +3,18 @@ package helper;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bruce.estacionamento.FormularioActivity;
 import com.example.bruce.estacionamento.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import bin.Carro;
 
@@ -41,6 +47,10 @@ public class FormularioHelper {
         if(estacionado.isChecked()) carro.setEstacionado(1);
         else carro.setEstacionado(0);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        carro.setData(dateFormat.format(date));
+
         return carro;
     }
 
@@ -55,9 +65,12 @@ public class FormularioHelper {
 
         if(carro.getCaminhoFoto() != null){
             Bitmap imagemFoto = BitmapFactory.decodeFile(carro.getCaminhoFoto());
-            imagemFoto = Bitmap.createScaledBitmap(imagemFoto, 150,150,true);
 
-            foto.setImageBitmap(imagemFoto);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(imagemFoto, 150, 150, true);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+            foto.setImageBitmap(rotatedBitmap);
         }
 
 
@@ -69,9 +82,15 @@ public class FormularioHelper {
         this.carro.setCaminhoFoto(caminhoFoto);
 
         Bitmap imagemFoto = BitmapFactory.decodeFile(caminhoFoto);
-        imagemFoto = Bitmap.createScaledBitmap(imagemFoto, 150,150,true);
+       // imagemFoto = Bitmap.createScaledBitmap(imagemFoto, 300,300,true);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(imagemFoto, 150, 150, true);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        foto.setImageBitmap(rotatedBitmap);
 
-        foto.setImageBitmap(imagemFoto);
+
+        //foto.setImageBitmap(imagemFoto);
 
     }
 }
